@@ -1,0 +1,15 @@
+{
+  "name": "EV3 Sample Controller",
+  "type": "certified",
+  "description": "Sample Mindstorms EV3 control using Bluetooth",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "Sergei Grebnov",
+    "url": "http://sgrebnov.blogspot.com"
+  },
+  "permissions": {
+    "bluetooth":{},
+    "systemXHR":{},
+    "sms":{}
+  }
+}

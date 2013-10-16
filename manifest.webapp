@@ -1,7 +1,7 @@
 {
-  "name": "EV3 Sample Controller",
+  "name": "Cordova Seagway App",
   "type": "certified",
-  "description": "Sample Mindstorms EV3 control using Bluetooth",
+  "description": "Sample Cordova app that controls EV3 Seagway robot via Bluetooth",
   "launch_path": "/index.html",
   "developer": {
     "name": "Sergei Grebnov",
@@ -9,7 +9,6 @@
   },
   "permissions": {
     "bluetooth":{},
-    "systemXHR":{},
-    "sms":{}
+    "systemXHR":{}
   }
 }

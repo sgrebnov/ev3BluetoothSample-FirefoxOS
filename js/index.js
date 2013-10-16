@@ -1,64 +1,70 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+var MOTOR_A = 0,
+    MOTOR_B = 1,
+    MOTOR_C = 2;
+
 var app = {
-    // Application Constructor
-    initialize: function() {
-        console.log("app.initialize()");
+        
+   initialize: function() {
         this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
+   },
+   connectToRobot: function () {
+       navigator.plugins.nxt.connect(
+           //success
+           function() {
+                alert("Successfully connected");
+           },
+           //error
+           function(err) {
+               alert(err);
+           },
+           {});
+   },
+   forward: function () {
+       app.motorRun(MOTOR_A, 0.5);
+   },
+   backward: function () {
+       app.motorRun(MOTOR_A, -0.5);
+   },
+   stop: function () {
+       app.motorRun(MOTOR_A, 0);
+   },
+   motorRun: function (port, power) {
+       navigator.plugins.nxt.motorRun(
+           // success
+           function () { },
+           // error
+           function(err) {
+               alert(err);
+           },
+           // params
+           {"port": port, "speed": power});
+   },
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-
-        //document.getElementById('btnTestBt1', function(){
-            alert('window.navigator.bluetooth is ' + typeof window.navigator.bluetooth);
-        //});
-
-        //document.getElementById('btnTestBt2', function(){
-            alert('window.navigator.mozSms is ' + typeof  window.navigator.mozSms);
-        //});
-
-        //document.getElementById('btnTestBt3', function(){
-            alert('window.navigator.mozBluetooth is ' + typeof window.navigator.mozBluetooth);
-        //});
+        document.addEventListener('deviceready', this.onDeviceReady, false);    
     },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        console.log("app.onDeviceReady()");
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-
-        console.log('Received Event: ' + id);
+        console.log('onDeviceReady');
+        app.connectToRobot();
+        
+        $("#btnForward").bind("click", function () {
+            app.forward();
+        });
+        
+        $("#btnBackward").bind("click", function () {
+            app.backward();
+        });
+        
+        $("#btnStop").bind("click", function () {
+            app.stop();
+        });
+        
+        $("#btnLeft").bind("click", function () {
+            app.motorRun(MOTOR_A, 1);
+        });
+        
+        $("#btnRight").bind("click", function () {
+            app.motorRun(MOTOR_A, -1);
+        });
     }
 };
 
